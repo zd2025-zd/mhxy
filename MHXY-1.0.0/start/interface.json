@@ -1,0 +1,99 @@
+{
+    "name": "Maa_MHXY_MG",
+    "message": "Maa_MHXY_MG工具。",
+    "url": "https://github.com/gitlihang/Maa_MHXY_MG",
+    "mirrorchyan_rid": "Maa_MHXY_MG",
+    "mirrorchyan_multiplatform": true,
+    "controller": [
+        {
+            "name": "安卓端",
+            "type": "Adb"
+        }
+    ],
+    "resource": [
+        {
+            "name": "官服",
+            "path": [
+                "{PROJECT_DIR}/resource/base"
+            ]
+        }
+    ],
+    "agent": {
+        "child_exec": "{PROJECT_DIR}/python/python.exe",
+        "child_args": [
+            "{PROJECT_DIR}/agent/main.py",
+            "-u"
+        ]
+    },
+    "task":[ 
+        {
+            "name": "宝图任务",
+            "entry": "宝图任务"
+        },
+        {
+            "name": "捉鬼任务",
+            "entry": "捉鬼任务"
+        }
+    ],
+    "option": {
+        "创建队伍-副本": {
+            "cases": [
+                {
+                    "name": "不需创建队伍",
+                    "pipeline_override": {
+                        "识别位置-长安城-副本": {
+                            "next": [
+                                "打开小地图_百晓仙子"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "需要创建队伍",
+                    "pipeline_override": {}
+                }
+            ]
+        },
+        "320或3本": {
+            "cases": [
+                {
+                    "name": "3副本加两轮鬼",
+                    "pipeline_override": {
+                        "50普通-2-副本完成-退出": {
+                            "next": [
+                                "日常抓鬼-第一轮"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "3副本",
+                    "pipeline_override": {}
+                }
+            ]
+        }
+    },
+    "advanced": {
+        "输入文本": {
+            "field": "text",
+            "type": "string",
+            "default": "nihao",
+            "pipeline_override": {
+                "shuru": {
+                    "input_text": "{text}"
+                }
+            }
+        },
+        "抓鬼轮次选择": {
+            "field": "number",
+            "type": "int",
+            "default": 2,
+            "pipeline_override": {
+                "custom_action_param": {
+                    "target_count": "{number}"
+                }
+            }
+        }
+    },
+    "version": "v0.0.1"
+}
